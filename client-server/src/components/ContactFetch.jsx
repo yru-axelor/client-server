@@ -6,9 +6,7 @@ function ContactFetch() {
   useEffect(() => {
     try {
       async function fetching() {
-        const res = await fetch("http://localhost:5000/api/contacts", {
-          method: "GET",
-        });
+        const res = await fetch("http://localhost:5000/api/contacts");
         const data = await res.json();
         setUsers(data);
       }
@@ -19,9 +17,11 @@ function ContactFetch() {
   }, []);
   return (
     <div>
+      <ol>
       {users.map((user) => (
-        <li key={user.id}>{user.firstName}</li>
+        <li key={user.id}>{user.firstName} {user.lastName} </li>
       ))}
+      </ol>
     </div>
   );
 }
