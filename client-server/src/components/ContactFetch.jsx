@@ -7,18 +7,20 @@ function ContactFetch() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    try {
-      async function fetching() {
+    async function fetching() {
+      try {
+
         const res = await fetch("http://localhost:5000/api/contacts");
         const data = await res.json();
         setUsers(data);
+
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
       }
-      fetching();
-    } catch (error) {
-      setError(error.message);
-    } finally {
-      setLoading(false);
     }
+    fetching();
   }, []);
   if (loading) {
     return <p>Loading...</p>;
@@ -28,7 +30,7 @@ function ContactFetch() {
     return <p>Error: {error}</p>;
   }
   return (
-    <div>
+    <>
       <ol>
         <div className="container">
           {users.map((user) => (
@@ -37,7 +39,7 @@ function ContactFetch() {
         </div>
       </ol>
 
-    </div >
+    </ >
   );
 }
 
