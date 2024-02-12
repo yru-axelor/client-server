@@ -3,6 +3,8 @@ import { Card } from "./Card/Card";
 
 function ContactFetch() {
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     try {
@@ -12,10 +14,19 @@ function ContactFetch() {
         setUsers(data);
       }
       fetching();
-    } catch (e) {
-      console.log(e.message);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
     }
   }, []);
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
   return (
     <div>
       <ol>
