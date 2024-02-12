@@ -1,21 +1,24 @@
-import React from 'react'
 
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { Card } from "./Card/Card";
 export const ContactAxios = () => {
-  const [dataList, setDataList] = useState([]);
+  const [users, setUsers] = useState([]);
   useEffect(() => {
     axios.get("http://localhost:5000/api/contacts").then((response) => {
-      setDataList(response.data);
+      setUsers(response.data);
     });
   }, []);
   return (
-    <>
-      <ol className="container">
-        {dataList.map((data) => (
-          <h5 key={data.id}>
-            {data.firstName} {data.lastName}
-          </h5>
-        ))}
+    <div>
+      <ol>
+        <div className="container">
+          {users.map((user) => (
+            <Card key={user.id} user={user} />
+          ))}
+        </div>
       </ol>
-    </>
+
+    </div >
   );
 }

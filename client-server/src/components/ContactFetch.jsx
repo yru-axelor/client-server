@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Card } from "./Card/Card";
 
 function ContactFetch() {
   const [users, setUsers] = useState([]);
@@ -18,11 +19,14 @@ function ContactFetch() {
   return (
     <div>
       <ol>
-      {users.map((user) => (
-        <li key={user.id}>{user.firstName} {user.lastName} </li>
-      ))}
+        <div className="container">
+          {users.map((user) => (
+            <Card key={user.id} user={user} />
+          ))}
+        </div>
       </ol>
-    </div>
+
+    </div >
   );
 }
 
